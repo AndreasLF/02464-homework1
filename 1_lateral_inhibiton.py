@@ -4,11 +4,11 @@ def activation_level(I,w):
     The activation of the two cells at the endpoints are ignored.
 
     Args:
-        I (list): Inputs from photoreceptor
+        I (list[int]): Inputs from photoreceptor
         w (int): Weight of lateral inhibition
 
     Returns:
-        List: Activiation levels of each element
+        List[float]: Activiation levels of each element
     """
     
     A = []
@@ -21,7 +21,31 @@ def activation_level(I,w):
             A.append(a)
     return A
 
+def set_threshold(A, threshold):
+    """Activate or deactivate the nerons based on a threshold.
+
+    Args:
+        A (list[float]): List of activation levels
+        threshold (float): The threshold value. If the activation level of a neron is smaller than this, it will not be active.
+
+    Returns:
+        list[int]: Active and not active neurons. Active neurons are represented by 1 and not active by 0
+    """
+
+    new_A = []
+
+    # Loop through the activation levels
+    for a in A:
+        if a < threshold:
+            new_A.append(0)
+        else:
+            new_A.append(1)
+    
+    return new_A
+
+
 w = 0.1
 I = [1,1,1,1,1,0,0,0,0,0]
 
 print(activation_level(I,w))
+print(set_threshold(activation_level(I,w),0.9))
