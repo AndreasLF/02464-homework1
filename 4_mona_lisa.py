@@ -75,4 +75,4 @@ thres = 15
 output = threshold(output,thres)
 # print(output)
 
-cv2.imwrite(f'data/2DConvolved_kernel2_threshold{thres}.jpg', output)
+cv2.imwrite(f'test_data/2DConvolved_kernel2_threshold{thres}.jpg', output)
