@@ -80,7 +80,7 @@ image = cv2.imread(img_path)
 image = cv2.cvtColor(src=image, code=cv2.COLOR_BGR2GRAY)
 
 w = 0.1
-n = 1
+n = 15
 # Threshold value. If None a threshold will not be applied
 thres = None
 
@@ -90,11 +90,28 @@ kernel = create_kernel(n,w)
 # Apply the kernel to the image
 output = convolve2D(image, kernel)
 
+
 if thres: 
     # Apply threshold
     output = threshold(output,thres)
-    cv2.imwrite(f'test_data/2DConvolved_kernel{n}_threshold{thres}.jpg', output)
+    cv2.imwrite(f'test_data/mona_lisa/2DConvolved_kernel{n}_threshold{thres}.jpg', output)
 else:
-    cv2.imwrite(f'test_data/2DConvolved_kernel{n}.jpg', output)
+    cv2.imwrite(f'test_data/mona_lisa/2DConvolved_kernel{n}.jpg', output)
+
+# # Loop through all images and apply theshold
+# for n in np.arange(1,15):
+    
+#     img_path = f"test_data/mona_lisa/2DConvolved_kernel{n}.jpg"
+#     print(n)
+
+#     image = cv2.imread(img_path) 
+#     image = cv2.cvtColor(src=image, code=cv2.COLOR_BGR2GRAY)
+
+#     for thres in range(0,250,20):
+#         print(thres) 
 
 
+#         if thres: 
+#             # Apply threshold
+#             output = threshold(image,thres)
+#             cv2.imwrite(f'test_data/mona_lisa/2DConvolved_kernel{n}_threshold{thres}.jpg', output)
