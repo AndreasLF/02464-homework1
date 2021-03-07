@@ -12,7 +12,7 @@ def create_kernel(n, w):
         ndarray: 2x2 kernel matrix
     """
     ones = np.ones((n,n))
-    kernel = np.pad(ones,n,'constant', constant_values=w)
+    kernel = np.pad(ones,n,'constant', constant_values=-w)
 
     return kernel
 
@@ -80,16 +80,15 @@ image = cv2.imread(img_path)
 image = cv2.cvtColor(src=image, code=cv2.COLOR_BGR2GRAY)
 
 w = 0.1
-n = 4
+n = 1
 # Threshold value. If None a threshold will not be applied
-thres = 20
+thres = None
 
 # Generate the kernel
-kernel = create_kernel(4,w)
+kernel = create_kernel(n,w)
 
 # Apply the kernel to the image
 output = convolve2D(image, kernel)
-
 
 if thres: 
     # Apply threshold
