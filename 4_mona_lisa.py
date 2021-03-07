@@ -1,6 +1,5 @@
 import cv2, sys
 import numpy as np
-# from skimage import io
 
 def create_kernel(n, w):
     """Generate kernel
@@ -60,8 +59,16 @@ def convolve2D(image, kernel, padding=0, strides=1):
 
     return output
 
-
 def threshold(A, threshold):
+    """Apply theshold to matrix
+
+    Args:
+        A (ndarray): matrix containing acrtivation levels
+        threshold (int): threshold value
+
+    Returns:
+        ndarray: matrix with the threshold applied
+    """
     x = np.where(A < threshold, 0, 255)
 
     return x
