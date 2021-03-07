@@ -67,12 +67,15 @@ base_kernel = np.array([[-w,-w,-w],[-w,1,-w],[-w,-w,-w]])
 
 kernel2 = np.array([[-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w],[-w,-w,1,1,-w,-w],[-w,-w,1,1,-w,-w],[-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w]])
 
-output = convolve2D(image, kernel2)
+kernel3 = np.array([[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,1,1,1,-w,-w,-w],[-w,-w,-w,1,1,1,-w,-w,-w],[-w,-w,-w,1,1,1,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w]])
+
+
+output = convolve2D(image, kernel3)
 # print(output)
 
-thres = 15
+thres = 40
 
 output = threshold(output,thres)
 # print(output)
 
-cv2.imwrite(f'test_data/2DConvolved_kernel2_threshold{thres}.jpg', output)
+cv2.imwrite(f'test_data/2DConvolved_kernel3_threshold{thres}.jpg', output)
