@@ -2,7 +2,20 @@ import cv2, sys
 import numpy as np
 # from skimage import io
 
-np.set_printoptions(threshold=sys.maxsize)
+def create_kernel(n, w):
+    """Generate kernel
+
+    Args:
+        n (int): kernel scale
+        w (float): inhibiton weight
+
+    Returns:
+        ndarray: 2x2 kernel matrix
+    """
+    ones = np.ones((n,n))
+    kernel = np.pad(ones,n,'constant', constant_values=w)
+
+    return kernel
 
 def convolve2D(image, kernel, padding=0, strides=1):
     # Cross Correlation
@@ -53,9 +66,6 @@ def threshold(A, threshold):
 
     return x
 
-
-# threshold(np.array([[1,2,3],[0.1,0.5,1],[1,2,1]]),0.6)
-
 img_path = "MonaLisa.jpg"
 
 # load the image
@@ -63,19 +73,22 @@ image = cv2.imread(img_path)
 image = cv2.cvtColor(src=image, code=cv2.COLOR_BGR2GRAY)
 
 w = 0.1
-base_kernel = np.array([[-w,-w,-w],[-w,1,-w],[-w,-w,-w]])
+n = 4
+# Threshold value. If None a threshold will not be applied
+thres = 20
 
-kernel2 = np.array([[-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w],[-w,-w,1,1,-w,-w],[-w,-w,1,1,-w,-w],[-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w]])
+# Generate the kernel
+kernel = create_kernel(4,w)
 
-kernel3 = np.array([[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,1,1,1,-w,-w,-w],[-w,-w,-w,1,1,1,-w,-w,-w],[-w,-w,-w,1,1,1,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w],[-w,-w,-w,-w,-w,-w,-w,-w,-w]])
+# Apply the kernel to the image
+output = convolve2D(image, kernel)
 
 
-output = convolve2D(image, kernel3)
-# print(output)
+if thres: 
+    # Apply threshold
+    output = threshold(output,thres)
+    cv2.imwrite(f'test_data/2DConvolved_kernel{n}_threshold{thres}.jpg', output)
+else:
+    cv2.imwrite(f'test_data/2DConvolved_kernel{n}.jpg', output)
 
-thres = 40
 
-output = threshold(output,thres)
-# print(output)
-
-cv2.imwrite(f'test_data/2DConvolved_kernel3_threshold{thres}.jpg', output)
