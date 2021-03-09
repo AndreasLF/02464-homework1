@@ -89,7 +89,7 @@ kernel = create_kernel(n,w)
 
 # Apply the kernel to the image
 output = convolve2D(image, kernel)
-
+output = cv2.normalize(output,  output, 0, 255, cv2.NORM_MINMAX)
 
 if thres: 
     # Apply threshold
