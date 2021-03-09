@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 def activation_level(I,w):
     """ Calculate activation levels. 
     
@@ -48,4 +50,10 @@ w = 0.1
 I = [1,1,1,1,1,0,0,0,0,0]
 
 print(activation_level(I,w))
+A = activation_level(I,w)
 print(set_threshold(activation_level(I,w),0.9))
+
+plt.plot(I)
+plt.plot([1,2,3,4,5,6,7,8],A)
+plt.legend(["Input fra fotoreceptor","Aktiveringsniveau"])
+plt.show()
