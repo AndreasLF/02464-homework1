@@ -17,9 +17,19 @@ def create_kernel(n, w):
     return kernel
 
 def convolve2D(image, kernel, padding=0, strides=1):
-    # Cross Correlation
-    # kernel = np.flipud(np.fliplr(kernel))
+    """ Convolves the image.
 
+    from https://github.com/SamratSahoo/UT-Arlington-Research
+
+    Args:
+        image (ndarray): 2x2 image matrix
+        kernel (ndarray): 2x2 kernel matrix
+        padding (int, optional): Padding to apply to the image. Defaults to 0.
+        strides (int, optional): Strides to take. Defaults to 1.
+
+    Returns:
+        ndarray: 2x2 image matrix
+    """
     # Gather Shapes of Kernel + Image + Padding
     xKernShape = kernel.shape[0]
     yKernShape = kernel.shape[1]
